@@ -1,0 +1,250 @@
+-- LocalScript (colocar em StarterGui)
+local URL = "https://roblox-server-key.preview.emergentagent.com/"
+
+local Players = game:GetService("Players")
+local StarterGui = game:GetService("StarterGui")
+local player = Players.LocalPlayer
+local playerGui = player:WaitForChild("PlayerGui")
+
+-- Cria ScreenGui
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "StealLikeUI"
+screenGui.ResetOnSpawn = true
+screenGui.Parent = playerGui
+
+-- Frame principal
+local frame = Instance.new("Frame")
+frame.Name = "MainFrame"
+frame.Size = UDim2.new(0, 420, 0, 180)
+frame.Position = UDim2.new(0.5, -210, 0.45, -90)
+frame.AnchorPoint = Vector2.new(0.5, 0.5)
+frame.BackgroundColor3 = Color3.fromRGB(30,30,30)
+frame.BorderSizePixel = 0
+frame.Parent = screenGui
+local frameCorner = Instance.new("UICorner", frame)
+frameCorner.CornerRadius = UDim.new(0, 10)
+
+-- Header (para arrastar)
+local header = Instance.new("Frame")
+header.Name = "Header"
+header.Size = UDim2.new(1, 0, 0, 44)
+header.Position = UDim2.new(0, 0, 0, 0)
+header.BackgroundTransparency = 1
+header.Parent = frame
+
+local title = Instance.new("TextLabel", header)
+title.Size = UDim2.new(1, -48, 1, 0)
+title.Position = UDim2.new(0, 12, 0, 0)
+title.BackgroundTransparency = 1
+title.Text = "Steal-like UI"
+title.Font = Enum.Font.GothamBold
+title.TextSize = 20
+title.TextColor3 = Color3.fromRGB(255,255,255)
+title.TextXAlignment = Enum.TextXAlignment.Left
+
+-- Close X
+local closeBtn = Instance.new("TextButton", header)
+closeBtn.Name = "Close"
+closeBtn.Size = UDim2.new(0, 32, 0, 24)
+closeBtn.Position = UDim2.new(1, -44, 0, 10)
+closeBtn.AnchorPoint = Vector2.new(0,0)
+closeBtn.BackgroundColor3 = Color3.fromRGB(200, 50, 50)
+closeBtn.Text = "X"
+closeBtn.Font = Enum.Font.GothamBold
+closeBtn.TextSize = 18
+closeBtn.TextColor3 = Color3.fromRGB(255,255,255)
+closeBtn.BorderSizePixel = 0
+local closeCorner = Instance.new("UICorner", closeBtn); closeCorner.CornerRadius = UDim.new(0,6)
+
+-- "Rosto" decorativo (círculo)
+local face = Instance.new("Frame", frame)
+face.Size = UDim2.new(0, 68, 0, 68)
+face.Position = UDim2.new(0, 12, 0, 52)
+face.BackgroundColor3 = Color3.fromRGB(240,200,120)
+face.BorderSizePixel = 0
+local faceCorner = Instance.new("UICorner", face); faceCorner.CornerRadius = UDim.new(1,0)
+
+local leftEye = Instance.new("Frame", face)
+leftEye.Size = UDim2.new(0, 12, 0, 12)
+leftEye.Position = UDim2.new(0, 14, 0, 20)
+leftEye.BackgroundColor3 = Color3.fromRGB(0,0,0)
+leftEye.BorderSizePixel = 0
+
+local rightEye = leftEye:Clone()
+rightEye.Parent = face
+rightEye.Position = UDim2.new(0, 42, 0, 20)
+
+local smile = Instance.new("Frame", face)
+smile.Size = UDim2.new(0, 36, 0, 12)
+smile.Position = UDim2.new(0, 16, 0, 40)
+smile.BackgroundColor3 = Color3.fromRGB(0,0,0)
+local smileCorner = Instance.new("UICorner", smile); smileCorner.CornerRadius = UDim.new(0,6)
+
+-- TextBox (lugar para escrever)
+local inputBox = Instance.new("TextBox", frame)
+inputBox.Size = UDim2.new(0, 260, 0, 34)
+inputBox.Position = UDim2.new(0, 96, 0, 64)
+inputBox.PlaceholderText = "Escreva aqui..."
+inputBox.Text = ""
+inputBox.ClearTextOnFocus = false
+inputBox.BackgroundColor3 = Color3.fromRGB(45,45,45)
+inputBox.TextColor3 = Color3.fromRGB(220,220,220)
+inputBox.Font = Enum.Font.Gotham
+inputBox.TextSize = 16
+local inputCorner = Instance.new("UICorner", inputBox); inputCorner.CornerRadius = UDim.new(0,6)
+
+-- URL display (pequeno, opcional, abaixo do input)
+local urlLabel = Instance.new("TextLabel", frame)
+urlLabel.Size = UDim2.new(0, 300, 0, 20)
+urlLabel.Position = UDim2.new(0, 96, 0, 100)
+urlLabel.BackgroundTransparency = 1
+urlLabel.Text = URL
+urlLabel.TextColor3 = Color3.fromRGB(200,200,200)
+urlLabel.Font = Enum.Font.Gotham
+urlLabel.TextSize = 12
+urlLabel.TextXAlignment = Enum.TextXAlignment.Left
+
+-- Botão Get Key (laranja) - copia o link fixo
+local btnGet = Instance.new("TextButton", frame)
+btnGet.Name = "GetKey"
+btnGet.Size = UDim2.new(0, 160, 0, 40)
+btnGet.Position = UDim2.new(0, 96, 1, -48)
+btnGet.BackgroundColor3 = Color3.fromRGB(255,140,20) -- laranja
+btnGet.Text = "Get Key"
+btnGet.Font = Enum.Font.GothamBold
+btnGet.TextSize = 18
+btnGet.TextColor3 = Color3.fromRGB(255,255,255)
+btnGet.BorderSizePixel = 0
+local btnGetCorner = Instance.new("UICorner", btnGet); btnGetCorner.CornerRadius = UDim.new(0,8)
+
+-- Botão decoração "Inserir Key"
+local btnDecor = Instance.new("TextButton", frame)
+btnDecor.Name = "Decor"
+btnDecor.Size = UDim2.new(0, 120, 0, 40)
+btnDecor.Position = UDim2.new(1, -140, 1, -48)
+btnDecor.BackgroundColor3 = Color3.fromRGB(80,140,220)
+btnDecor.Text = "Inserir Key"
+btnDecor.Font = Enum.Font.Gotham
+btnDecor.TextSize = 16
+btnDecor.TextColor3 = Color3.fromRGB(255,255,255)
+btnDecor.BorderSizePixel = 0
+local btnDecorCorner = Instance.new("UICorner", btnDecor); btnDecorCorner.CornerRadius = UDim.new(0,8)
+
+-- Fallback TextBox oculto para seleção manual do URL (quando setclipboard não existir)
+local fallbackBox = Instance.new("TextBox", frame)
+fallbackBox.Size = UDim2.new(0, 1, 0, 1)
+fallbackBox.Position = UDim2.new(0,0,0,0)
+fallbackBox.BackgroundTransparency = 1
+fallbackBox.Visible = false
+fallbackBox.Text = URL
+fallbackBox.ClearTextOnFocus = false
+
+-- Notificação helper
+local function notify(t, m, dur)
+    dur = dur or 3
+    pcall(function()
+        StarterGui:SetCore("SendNotification", {
+            Title = t;
+            Text = m;
+            Duration = dur;
+        })
+    end)
+end
+
+-- tenta copiar para clipboard (setclipboard em alguns ambientes/exploits)
+local function tryCopy(text)
+    local ok = false
+    pcall(function()
+        if type(setclipboard) == "function" then
+            setclipboard(text)
+            ok = true
+        end
+    end)
+    return ok
+end
+
+-- Função do Get Key
+btnGet.MouseButton1Click:Connect(function()
+    -- copia o link FIXO (independe do que está no inputBox)
+    local did = tryCopy(URL)
+    if did then
+        notify("Link copiado", "O link foi copiado para a área de transferência.")
+    else
+        -- fallback: mostra TextBox com o link e seleciona para facilitar Ctrl+C
+        fallbackBox.Visible = true
+        fallbackBox.Text = URL
+        fallbackBox:CaptureFocus()
+        pcall(function()
+            fallbackBox.SelectionStart = 1
+            fallbackBox.SelectionLength = #URL
+        end)
+        notify("Copiar manualmente", "O link foi mostrado e selecionado. Pressione Ctrl+C para copiar.")
+        delay(6, function()
+            if fallbackBox and fallbackBox.Parent then
+                fallbackBox.Visible = false
+            end
+        end)
+    end
+end)
+
+-- Botão decorativo: faz um pulso visual/pequena animação
+btnDecor.MouseButton1Click:Connect(function()
+    spawn(function()
+        local orig = btnDecor.BackgroundColor3
+        for i = 1, 8 do
+            btnDecor.BackgroundColor3 = btnDecor.BackgroundColor3:lerp(Color3.fromRGB(120,200,255), 0.2)
+            wait(0.03)
+            btnDecor.BackgroundColor3 = btnDecor.BackgroundColor3:lerp(orig, 0.2)
+            wait(0.03)
+        end
+        btnDecor.BackgroundColor3 = orig
+    end)
+end)
+
+-- Close button
+closeBtn.MouseButton1Click:Connect(function()
+    screenGui:Destroy()
+end)
+
+-- Implementação de drag (mais compatível que .Draggable)
+local dragging = false
+local dragStart = nil
+local startPos = nil
+
+local UserInputService = game:GetService("UserInputService")
+
+header.InputBegan:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+        dragging = true
+        dragStart = input.Position
+        startPos = frame.Position
+        input.Changed:Connect(function()
+            if input.UserInputState == Enum.UserInputState.End then
+                dragging = false
+            end
+        end)
+    end
+end)
+
+UserInputService.InputChanged:Connect(function(input)
+    if dragging and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
+        local delta = input.Position - dragStart
+        frame.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+    end
+end)
+
+-- Pequena utilidade: ler getclipboard (se existir) e colar no input ao pressionar Enter no inputBox
+inputBox.FocusLost:Connect(function(enterPressed)
+    if enterPressed then
+        -- tenta pegar getclipboard se existir e mostrar (opcional)
+        pcall(function()
+            if type(getclipboard) == "function" then
+                local clip = getclipboard()
+                if clip and clip ~= "" then
+                    inputBox.Text = clip
+                    notify("Colado", "Conteúdo da área de transferência colado no campo.")
+                end
+            end
+        end)
+    end
+end)
